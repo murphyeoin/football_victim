@@ -1,29 +1,138 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Random Name Picker</title>
+  <title>Saints 045 cull list</title>
 </head>
 <body>
-  <h1>Random Name Picker</h1>
+  <h1>Who gets culled this week?</h1>
 
-  <p>Click the button to get a random name from the list:</p>
-  <button onclick="displayRandomName()">Get Random Name</button>
+  <ul class="name-list">
+    <li>
+      <input type="text" value="Adrian" data-disabled="false">
+      <button class="toggle-disabled">Disable</button>
+    </li>
+    <li>
+      <input type="text" value="Brian S" data-disabled="false">
+      <button class="toggle-disabled">Disable</button>
+    </li>
+    <li>
+      <input type="text" value="Brian K" data-disabled="false">
+      <button class="toggle-disabled">Disable</button>
+    </li>
+    <li>
+        <input type="text" value="David C" data-disabled="false">
+        <button class="toggle-disabled">Disable</button>
+    </li>
+    <li>
+        <input type="text" value="David M" data-disabled="false">
+        <button class="toggle-disabled">Disable</button>
+    </li>
+    <li>
+        <input type="text" value="Dazza" data-disabled="false">
+        <button class="toggle-disabled">Disable</button>
+    </li>
+    <li>
+        <input type="text" value="Dan H" data-disabled="false">
+        <button class="toggle-disabled">Disable</button>
+    </li>
+    <li>
+        <input type="text" value="Dan P" data-disabled="false">
+        <button class="toggle-disabled">Disable</button>
+    </li>
+    <li>
+        <input type="text" value="Eoin" data-disabled="false">
+        <button class="toggle-disabled">Disable</button>
+    </li>
+    <li>
+        <input type="text" value="Francesco" data-disabled="false">
+        <button class="toggle-disabled">Disable</button>
+    </li>
+    <li>
+        <input type="text" value="Frank P" data-disabled="false">
+        <button class="toggle-disabled">Disable</button>
+    </li>
+    <li>
+        <input type="text" value="Jim" data-disabled="false">
+        <button class="toggle-disabled">Disable</button>
+    </li>
+    <li>
+        <input type="text" value="John" data-disabled="false">
+        <button class="toggle-disabled">Disable</button>
+    </li>
+    <li>
+        <input type="text" value="Mark" data-disabled="false">
+        <button class="toggle-disabled">Disable</button>
+    </li>
+    <li>
+        <input type="text" value="Matt F" data-disabled="false">
+        <button class="toggle-disabled">Disable</button>
+    </li>
+    <li>
+        <input type="text" value="Meraj" data-disabled="false">
+        <button class="toggle-disabled">Disable</button>
+    </li>
+    <li>
+        <input type="text" value="Nick" data-disabled="false">
+        <button class="toggle-disabled">Disable</button>
+    </li>
+    <li>
+        <input type="text" value="Richard" data-disabled="false">
+        <button class="toggle-disabled">Disable</button>
+    </li>
+    <li>
+        <input type="text" value="Roland" data-disabled="false">
+        <button class="toggle-disabled">Disable</button>
+    </li>
+    <li>
+        <input type="text" value="Steve " data-disabled="false">
+        <button class="toggle-disabled">Disable</button>
+    </li>
+    <li>
+        <input type="text" value="Steve M" data-disabled="false">
+        <button class="toggle-disabled">Disable</button>
+    </li>
+  </ul>
 
+  <button id="get-random-name">Get Random Name</button>
   <p id="result"></p>
 
   <script>
-    const names = ["adrian", "brians", "briank", "davidc", "davidm", 'dazza', "danh", "danp", "eoin", "francesco", "frank", "jim", "mark", "mattf", "meraj", "nick", "richard", "roland", "steve", "stevem"];
+    const nameList = document.querySelectorAll('.name-list li');
+    const getRandomNameButton = document.getElementById('get-random-name');
+    const resultElement = document.getElementById('result');
 
-    function getRandomEntry(list) {
-      const listLength = list.length;
-      const randomIndex = Math.floor(Math.random() * listLength);
-      return list[randomIndex];
+    // Function to get a random enabled name
+    function getRandomEnabledName() {
+      const enabledNames = Array.from(nameList)
+        .filter(li => li.querySelector('input').dataset.disabled !== 'true')
+        .map(li => li.querySelector('input').value);
+
+      if (enabledNames.length === 0) {
+        return 'No enabled names';
+      }
+
+      const randomIndex = Math.floor(Math.random() * enabledNames.length);
+      return enabledNames[randomIndex];
     }
 
-    function displayRandomName() {
-      const randomName = getRandomEntry(names);
-      document.getElementById('result').textContent = `The random name is: ${randomName}`;
-    }
+    // Add event listeners to toggle disabled state
+    nameList.forEach(li => {
+      const input = li.querySelector('input');
+      const button = li.querySelector('.toggle-disabled');
+
+      button.addEventListener('click', () => {
+        const isDisabled = input.dataset.disabled === 'true';
+        input.disabled = !isDisabled;
+        input.dataset.disabled = !isDisabled;
+        button.textContent = isDisabled ? 'Disable' : 'Enable';
+      });
+    });
+
+    // Add event listener to get random name
+    getRandomNameButton.addEventListener('click', () => {
+      const randomName = getRandomEnabledName();
+      resultElement.textContent = `The random name is: ${randomName}`;
+    });
   </script>
 </body>
 </html>
