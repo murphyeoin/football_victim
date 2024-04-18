@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Random Name Picker</title>
+</head>
+<body>
+  <h1>Random Name Picker</h1>
+
+  <p>Click the button to get a random name from the list:</p>
+  <button onclick="displayRandomName()">Get Random Name</button>
+
+  <p id="result"></p>
+
+  <script>
+    const names = ["adrian", "brians", "briank", "davidc", "davidm", 'dazza', "danh", "danp", "eoin", "francesco", "frank", "jim", "mark", "mattf", "meraj", "nick", "richard", "roland", "steve", "stevem"];
+
+    function getRandomEntry(list) {
+      const listLength = list.length;
+      const randomIndex = Math.floor(Math.random() * listLength);
+      return list[randomIndex];
+    }
+
+    function displayRandomName() {
+      const randomName = getRandomEntry(names);
+      document.getElementById('result').textContent = `The random name is: ${randomName}`;
+    }
+  </script>
+</body>
+</html>
